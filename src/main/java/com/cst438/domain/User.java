@@ -25,8 +25,8 @@ public class User {
 	private String password;
 	private String role;
 
-	@OneToMany(mappedBy = "user")
-    private Set<UserLibrary> userLibraries = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<UserLibrary> userLibrary = new HashSet<>();
 	
 	
 	public User() {
@@ -68,13 +68,15 @@ public class User {
 		this.role = role;
 	}
 
-	public Set<UserLibrary> getUserLibraries() {
-		return userLibraries;
+	public Set<UserLibrary> getUserLibrary() {
+		return userLibrary;
 	}
 
-	public void setUserLibraries(Set<UserLibrary> userLibraries) {
-		this.userLibraries = userLibraries;
+	public void setUserLibrary(Set<UserLibrary> userLibrary) {
+		this.userLibrary = userLibrary;
 	}
+
+
 	
 	
 

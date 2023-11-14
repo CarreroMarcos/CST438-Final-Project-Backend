@@ -6,5 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface SongRepository extends CrudRepository <Song, Integer> {
 
-    Song findByDeezer_id(int deezerId);
+    @Query("select s from Song s where s.deezer_id = :deezerId")
+    Song findByDeezerId(@Param("deezerId") int deezerId);
 }

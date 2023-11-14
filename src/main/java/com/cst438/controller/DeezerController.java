@@ -48,17 +48,17 @@ public class DeezerController {
 
     @PostMapping("/userlibrary")
     @Transactional
-    public void addSongToUserLibrary(@RequestParam("deezer_id") int deezer_id, @RequestParam("user_id") int userId) {
-        Song song = songRepository.findByDeezer_id(deezer_id);
+    public void addSongToUserLibrary(@RequestParam("deezer_id") int deezer_id, @RequestParam("email") String email) {
+        Song song = songRepository.findByDeezerId(deezer_id);
         
         if (song == null) {
             song = deezerService.getTrack(deezer_id);
             songRepository.save(song);
         }
 
-        User user = userRepository.findByUser_id(userId);
+        User user = userRepository.findByEmail(email);
         if (user == null) {
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ userId );
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ email );
         }
     
         UserLibrary userLibrary = new UserLibrary();
