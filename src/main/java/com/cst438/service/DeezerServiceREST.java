@@ -41,7 +41,8 @@ public class DeezerServiceREST {
 						song.setTitle(node.get("title").asText());
 						song.setDuration(node.get("duration").asInt());
 						song.setArtist(node.get("artist").get("name").asText());
-						song.setCover_art(node.get("album").get("cover").asText());
+						song.setCover_art(node.get("album").get("cover_medium").asText());
+						song.setPreview(node.get("preview").asText());
 						
 						songs.add(song);
 					}
@@ -76,7 +77,8 @@ public class DeezerServiceREST {
 						song.setTitle(node.get("title").asText());
 						song.setDuration(node.get("duration").asInt());
 						song.setArtist(node.get("artist").get("name").asText());
-						song.setCover_art(node.get("album").get("cover").asText());
+						song.setCover_art(node.get("album").get("cover_medium").asText());
+						song.setPreview(node.get("preview").asText());
 						
 						songs.add(song);
 					}
@@ -103,12 +105,13 @@ public class DeezerServiceREST {
 				song.setDeezer_id(root.get("id").asInt());
 				song.setTitle(root.get("title").asText());
 				song.setDuration(root.get("duration").asInt());
+				song.setPreview(root.get("preview").asText());
 			
 				JsonNode artistNode = root.path("artist");
 				song.setArtist(artistNode.get("name").asText());
 	
 				JsonNode albumNode = root.path("album");
-				song.setCover_art(albumNode.get("cover").asText());
+				song.setCover_art(albumNode.get("cover_medium").asText());
 	
 			} catch (Exception e) {
 				e.printStackTrace();

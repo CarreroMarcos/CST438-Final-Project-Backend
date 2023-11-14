@@ -12,7 +12,8 @@ create table song(
 	title varchar(45),
 	duration int,
 	artist varchar(45),
-	cover_art varchar(150)
+	cover_art varchar(150),
+	preview varchar(150)
 );
 
 create table user_library(

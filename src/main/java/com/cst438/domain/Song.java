@@ -14,6 +14,7 @@ public class Song {
 	private int duration;
 	private String artist;
 	private String cover_art;
+	private String preview;
 	
 	public Song() {
 		super();
@@ -58,12 +59,22 @@ public class Song {
 	public void setCover_art(String cover_art) {
 		this.cover_art = cover_art;
 	}
+	
+
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String previewUrl) {
+		this.preview = previewUrl;
+	}
 
 	@Override
 	public String toString() {
 		return "Song [deezer_id=" + deezer_id + ", title=" + title + ", duration=" + duration + ", artist=" + artist
 				+ ", cover_art=" + cover_art + "]";
 	}
+	
 	
 	
 }
