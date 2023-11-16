@@ -1,5 +1,5 @@
 package com.cst438.domain;
 
-public record UserLibraryDTO(int id, int userId, int deezerId) {
+public record UserLibraryDTO(String email, long deezer_id) {
 
 }

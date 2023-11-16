@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class Song {
 	
 	@Id
-	private int deezer_id;
+	private long deezer_id;
 	private String title;
 	private int duration;
 	private String artist;
@@ -20,11 +20,11 @@ public class Song {
 		super();
 	}
 
-	public int getDeezer_id() {
+	public long getDeezer_id() {
 		return deezer_id;
 	}
 
-	public void setDeezer_id(int deezer_id) {
+	public void setDeezer_id(long deezer_id) {
 		this.deezer_id = deezer_id;
 	}
 
@@ -72,7 +72,7 @@ public class Song {
 	@Override
 	public String toString() {
 		return "Song [deezer_id=" + deezer_id + ", title=" + title + ", duration=" + duration + ", artist=" + artist
-				+ ", cover_art=" + cover_art + "]";
+				+ ", cover_art=" + cover_art + ", preview=" + preview + "]";
 	}
 	
 	

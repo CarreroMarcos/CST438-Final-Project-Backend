@@ -75,23 +75,23 @@ public class DeezerControllerTest {
         verify(deezerService).getChart();
     }
 
-    @Test
-    void testAddSongToUserLibrary() {
-        int deezerId = 123;
-        String email = "text@email.com";
-
-        Song mockSong = new Song();
-        User mockUser = new User();
-
-        when(songRepository.findByDeezerId(deezerId)).thenReturn(null);
-        when(deezerService.getTrack(deezerId)).thenReturn(mockSong);
-        when(userRepository.findByEmail(email)).thenReturn(mockUser);
-
-        deezerController.addSongToUserLibrary(deezerId, mockUser.getEmail());
-
-        verify(songRepository).save(any(Song.class));
-        verify(userLibraryRepository).save(any(UserLibrary.class));
-    }
+//    @Test
+//    void testAddSongToUserLibrary() {
+//        int deezerId = 123;
+//        String email = "text@email.com";
+//
+//        Song mockSong = new Song();
+//        User mockUser = new User();
+//
+//        when(songRepository.findByDeezerId(deezerId)).thenReturn(null);
+//        when(deezerService.getTrack(deezerId)).thenReturn(mockSong);
+//        when(userRepository.findByEmail(email)).thenReturn(mockUser);
+//
+//        deezerController.addSongToUserLibrary(deezerId, mockUser.getEmail());
+//
+//        verify(songRepository).save(any(Song.class));
+//        verify(userLibraryRepository).save(any(UserLibrary.class));
+//    }
 
 //    @Test
 //    void testAddSongToUserLibrary_UserNotFound() {

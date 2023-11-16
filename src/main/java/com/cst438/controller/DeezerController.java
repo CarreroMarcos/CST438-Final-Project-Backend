@@ -4,6 +4,7 @@ import com.cst438.domain.Song;
 import com.cst438.domain.SongRepository;
 import com.cst438.domain.User;
 import com.cst438.domain.UserLibrary;
+import com.cst438.domain.UserLibraryDTO;
 import com.cst438.domain.UserLibraryRepository;
 import com.cst438.domain.UserRepository;
 import com.cst438.service.DeezerServiceREST;
@@ -48,17 +49,17 @@ public class DeezerController {
 
     @PostMapping("/userlibrary")
     @Transactional
-    public void addSongToUserLibrary(@RequestParam("deezer_id") int deezer_id, @RequestParam("email") String email) {
-        Song song = songRepository.findByDeezerId(deezer_id);
+    public void addSongToUserLibrary(@RequestBody UserLibraryDTO request) {
+        Song song = songRepository.findByDeezerId(request.deezer_id());
         
         if (song == null) {
-            song = deezerService.getTrack(deezer_id);
+            song = deezerService.getTrack(request.deezer_id());
             songRepository.save(song);
         }
-
-        User user = userRepository.findByEmail(email);
+        
+        User user = userRepository.findByEmail(request.email());
         if (user == null) {
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ email );
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ request.email() );
         }
     
         UserLibrary userLibrary = new UserLibrary();

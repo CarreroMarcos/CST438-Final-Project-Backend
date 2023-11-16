@@ -4,6 +4,7 @@ package com.cst438.domain;
 import java.util.HashSet;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +20,7 @@ import java.util.Set;
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "user_id")
 	private int id;
 	private String alias;
 	private String email; 	

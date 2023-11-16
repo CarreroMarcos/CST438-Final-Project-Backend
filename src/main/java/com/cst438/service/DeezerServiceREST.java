@@ -37,7 +37,7 @@ public class DeezerServiceREST {
 				if (dataArray.isArray()) {
 					for (JsonNode node : dataArray) {
 						Song song = new Song();
-						song.setDeezer_id(node.get("id").asInt());
+						song.setDeezer_id(node.get("id").asLong());
 						song.setTitle(node.get("title").asText());
 						song.setDuration(node.get("duration").asInt());
 						song.setArtist(node.get("artist").get("name").asText());
@@ -73,7 +73,7 @@ public class DeezerServiceREST {
 				if (dataArray.isArray()) {
 					for (JsonNode node : dataArray) {
 						Song song = new Song();
-						song.setDeezer_id(node.get("id").asInt());
+						song.setDeezer_id(node.get("id").asLong());
 						song.setTitle(node.get("title").asText());
 						song.setDuration(node.get("duration").asInt());
 						song.setArtist(node.get("artist").get("name").asText());
@@ -93,7 +93,7 @@ public class DeezerServiceREST {
 		return songs;
 	}
 
-	public Song getTrack(int deezer_id) {
+	public Song getTrack(long deezer_id) {
 		String url = "https://api.deezer.com/track/" + deezer_id;
 		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 		Song song = new Song();
@@ -102,7 +102,7 @@ public class DeezerServiceREST {
 			try {
 				JsonNode root = mapper.readTree(response.getBody());
 	
-				song.setDeezer_id(root.get("id").asInt());
+				song.setDeezer_id(root.get("id").asLong());
 				song.setTitle(root.get("title").asText());
 				song.setDuration(root.get("duration").asInt());
 				song.setPreview(root.get("preview").asText());
