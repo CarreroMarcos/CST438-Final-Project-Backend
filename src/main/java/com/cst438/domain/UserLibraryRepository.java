@@ -11,7 +11,9 @@ public interface UserLibraryRepository extends CrudRepository <UserLibrary, Inte
     @Query("select l from UserLibrary l where l.user.id = :userId")
     List<UserLibrary> findByUserId(@Param("userId") int userId);
 	
-//	@Query("select l from user_library l where l.user_id=:user_id and l.library_id=:library_id")
-//	UserLibrary findByUserIdAndLibraryId(@Param("user_id") int user_id, @Param("library_id") int library_id);
+	@Query("select l from UserLibrary l where l.user.id=:userId and l.song.deezer_id=:deezer_id")
+	UserLibrary findByUserIdAndSong(@Param("userId") int userId, @Param("deezer_id") long deezer_id);
 	
+    @Query("select l from UserLibrary l where l.library_id = :library_id")
+    UserLibrary findByLibraryId(@Param("library_id") int library_id);
 }
