@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.security.Principal;
 import java.util.ArrayList;
 
 @RestController
@@ -23,7 +24,14 @@ public class AdminController {
 	private UserRepository userRepository;
     
     @GetMapping("/users")
-    public UserDTO[] getUsers() { 
+    public UserDTO[] getUsers(Principal principal) {
+    	
+		String alias = principal.getName();
+		User currentUser = userRepository.findByAlias(alias);
+		if(!currentUser.getRole().equals("ADMIN")) {
+			throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "Not an admin");
+		}
+		
 		Iterable<User> list = userRepository.findAll();
 		ArrayList<UserDTO> alist = new ArrayList<>();
 		for (User u : list) {
