@@ -8,18 +8,19 @@ create table user_table (
 );
 
 create table song(
-	deezer_id int NOT NULL primary key,
-	title varchar(45) NOT NULL,
+	deezer_id BIGINT NOT NULL primary key,
+	title varchar(45),
 	duration int,
 	artist varchar(45),
-	cover_art varchar(150)
+	cover_art varchar(150),
+	preview varchar(150)
 );
 
 create table user_library(
 	library_id int NOT NULL AUTO_INCREMENT,
 	user_id int NOT NULL,
-	deezer_id int NOT NULL,
+	deezer_id BIGINT NOT NULL,
 	primary key (library_id),
 	FOREIGN KEY (user_id) REFERENCES user_table (user_id) on delete cascade,
-	FOREIGN KEY (deezer_id) REFERENCES song (deezer_id)
+	FOREIGN KEY (deezer_id) REFERENCES song (deezer_id) on delete cascade
 );
