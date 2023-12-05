@@ -17,12 +17,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.security.Principal;
 import java.util.ArrayList;
 
 import javax.transaction.Transactional;
 
 @RestController
-@CrossOrigin 
+//@CrossOrigin 
 public class DeezerController {
 
     @Autowired
@@ -39,20 +40,21 @@ public class DeezerController {
     
     
 
-    @GetMapping("/search/{query}")
+    @RequestMapping(value="/search/{query}", method=RequestMethod.GET)
     public List<Song> getSongsBySearch(@PathVariable("query") String query) {
         return deezerService.getTracks(query);
     }
 
-    @GetMapping("/chart")
+    @RequestMapping(value="/chart", method=RequestMethod.GET)
     public List<Song> getChart() {
         return deezerService.getChart();
     }
 
 
     @GetMapping("/userlibrary")
-    public SongDTO[] getUserLibrary(){
-        User currentUser = userRepository.findByEmail("test@csumb.edu");
+    public SongDTO[] getUserLibrary(Principal principal){
+		String alias = principal.getName();
+		User currentUser = userRepository.findByAlias(alias);
 
         List<UserLibrary> songLibrary = userLibraryRepository.findByUserId(currentUser.getId());
 
@@ -66,7 +68,9 @@ public class DeezerController {
 
     @PostMapping("/userlibrary")
     @Transactional
-    public void addSongToUserLibrary(@RequestBody UserLibraryDTO request) {
+    public void addSongToUserLibrary(Principal principal, @RequestBody UserLibraryDTO request) {
+		String alias = principal.getName();
+		User currentUser = userRepository.findByAlias(alias);
         Song song = songRepository.findByDeezerId(request.deezer_id());
         
         if (song == null) {
@@ -97,11 +101,14 @@ public class DeezerController {
 
     @DeleteMapping("/userLibrary/delete/{library_id}")
     @Transactional
-    public void removeSongFromUserLibrary(@PathVariable int library_id){
+    public void removeSongFromUserLibrary(Principal principal, @PathVariable int library_id){
+		String alias = principal.getName();
+		User currentUser = userRepository.findByAlias(alias);
+
         UserLibrary userLibrary = userLibraryRepository.findByLibraryId(library_id);
 
         if (userLibrary == null) {
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "error when deleteing" );
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "error when deleting" );
         }
         
         userLibraryRepository.delete(userLibrary);

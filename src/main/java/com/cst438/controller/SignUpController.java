@@ -7,6 +7,7 @@ import com.cst438.dto.UserDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -27,9 +28,13 @@ public class SignUpController {
     	
     	if(u == null) {
     		u = new User();
+    		
+    		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    		String encrpted_password = encoder.encode(newUser.password());
+    		
         	u.setAlias(newUser.alias());
         	u.setEmail(newUser.email());
-        	u.setPassword(newUser.password());
+        	u.setPassword(encrpted_password);
         	u.setRole(newUser.role());
         	
         	userRepository.save(u);
@@ -38,4 +43,6 @@ public class SignUpController {
     	}
     	
     }
+    
+    
 }
