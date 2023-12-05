@@ -78,12 +78,11 @@ public class DeezerController {
             songRepository.save(song);
         }
         
-        User user = userRepository.findByEmail(request.email());
-        if (user == null) {
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ request.email() );
+        if (currentUser == null) {
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ alias );
         }
 
-        List<UserLibrary> songLibrary = userLibraryRepository.findByUserId(user.getId());
+        List<UserLibrary> songLibrary = userLibraryRepository.findByUserId(currentUser.getId());
         
         for (UserLibrary s : songLibrary){
             if(s.getSong().getDeezer_id() == song.getDeezer_id()) {
@@ -92,7 +91,7 @@ public class DeezerController {
         }
     
         UserLibrary userLibrary = new UserLibrary();
-        userLibrary.setUser(user);
+        userLibrary.setUser(currentUser);
         userLibrary.setSong(song);
 
         userLibraryRepository.save(userLibrary);
