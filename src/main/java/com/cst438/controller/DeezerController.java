@@ -77,9 +77,8 @@ public class DeezerController {
             song = deezerService.getTrack(request.deezer_id());
             songRepository.save(song);
         }
- 
         if (currentUser == null) {
-            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist " );
+            throw  new ResponseStatusException( HttpStatus.BAD_REQUEST, "user doesn't exist "+ alias );
         }
 
         List<UserLibrary> songLibrary = userLibraryRepository.findByUserId(currentUser.getId());
